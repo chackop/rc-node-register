@@ -12,7 +12,9 @@ router.get("/", function (req, res) {
 // Import user controller
 var userController = require("../controllers/user");
 // Contact routes
-router.route("/user").post(userController.new);
+router.route("/register").post(userController.new);
+
+router.route("/login").post(userController.login);
 
 // Export API routes
 module.exports = router;

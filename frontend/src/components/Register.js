@@ -72,7 +72,7 @@ const Register = () => {
     };
 
     try {
-      let resp = await axios.post("http://localhost:8080/api/user", data);
+      let resp = await axios.post("http://localhost:8080/api/register", data);
       setSubmitMessage(resp.message);
     } catch (error) {
       setSubmitMessage(error.message);
