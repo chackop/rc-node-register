@@ -7,5 +7,8 @@ Register
 Login
 ![Alt text](/Screenshot32.png?raw=true "login")
 
+Dataview
+![Alt text](/Screenshot66.png?raw=true "data")
+
 See below output of API in postman
 ![Alt text](/Screenshot6.png?raw=true "postman")

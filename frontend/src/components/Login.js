@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import axios from "axios";
+import DataView from "./DataView";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -33,7 +34,7 @@ const Login = () => {
   const [fullName, setfullName] = useState("");
   const [password, setPassword] = useState("");
   const [formIsValid, setFormIsValid] = useState(false);
-  const [submitMessage, setSubmitMessage] = useState(null);
+  const [dataResp, setDataResp] = useState(null);
 
   useEffect(() => {
     let allFieldsValid = fullName !== "" && password !== "";
@@ -62,9 +63,9 @@ const Login = () => {
 
     try {
       let resp = await axios.post("http://localhost:8080/api/login", data);
-      setSubmitMessage(resp.message);
+      setDataResp(resp.data);
     } catch (error) {
-      setSubmitMessage(error.message);
+      setDataResp({ error: error.message });
     }
   };
 
@@ -73,49 +74,59 @@ const Login = () => {
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}></Avatar>
-        <Typography component="h1" variant="h5" color="secondary">
-          Log in
-        </Typography>
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="fullName"
-            label="Full name"
-            name="fullName"
-            autoComplete="fullName"
-            autoFocus
-            value={fullName}
-            onChange={(evt) => fieldHandler(evt.target.value, "fullName")}
+        {dataResp ? (
+          <DataView
+            fullName={dataResp.fullName}
+            age={dataResp.age}
+            score={dataResp.score}
           />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            value={password}
-            onChange={(evt) => fieldHandler(evt.target.value, "password")}
-          />
+        ) : (
+          <>
+            <Typography component="h1" variant="h5" color="secondary">
+              Log in
+            </Typography>
+            <form className={classes.form} noValidate>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="fullName"
+                label="Full name"
+                name="fullName"
+                autoComplete="fullName"
+                autoFocus
+                value={fullName}
+                onChange={(evt) => fieldHandler(evt.target.value, "fullName")}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                value={password}
+                onChange={(evt) => fieldHandler(evt.target.value, "password")}
+              />
 
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            disabled={!formIsValid}
-            onClick={handleSubmit}
-          >
-            Sign In
-          </Button>
-        </form>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                disabled={!formIsValid}
+                onClick={handleSubmit}
+              >
+                Sign In
+              </Button>
+            </form>
+          </>
+        )}
       </div>
     </Container>
   );

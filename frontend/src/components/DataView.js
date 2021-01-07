@@ -1,7 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 
@@ -27,18 +26,18 @@ const DataView = ({ fullName, score, age }) => {
   return (
     <Card className={classes.root}>
       <CardContent>
+        <Typography variant="h5" component="h2">
+          Name: {fullName}
+        </Typography>
         <Typography
           className={classes.title}
           color="textSecondary"
           gutterBottom
         >
-          {fullName}
-        </Typography>
-        <Typography variant="h5" component="h2">
-          {score}
+          Score: {score}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          {age}
+          Age: {age}
         </Typography>
       </CardContent>
     </Card>
